@@ -30,5 +30,5 @@ export class TasksServiceProvider {
   insertUsuarioPessoa(nome: any, sobrenome: any, idade: any, genero: any, escolaridade: any, areaAtuacao: any, email: any, senha: any){
     let sql = 'INSERT INTO usuarioPessoa(nome, sobrenome, idade, genero, escolaridade, areaAtuacao, email, senha) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
     return this.db.executeSql(sql, [nome, sobrenome, idade, genero, escolaridade, areaAtuacao, email, senha]);
-  }
+  } 
 }
