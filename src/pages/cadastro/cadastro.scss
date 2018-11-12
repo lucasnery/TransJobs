@@ -1,0 +1,53 @@
+page-cadastro {
+    ion-content{
+        background-image: linear-gradient(#a83ba3, #9fb8e0);
+        text-align: center;
+    }
+
+    .header-ios .toolbar-ios:last-child .toolbar-background-ios {
+        background-color: #a83ba8;
+        color: white;
+    }
+
+    .bar-button-default-ios, .bar-button-default.bar-button-ios-default, .bar-button-clear-ios-default{
+        color: white;
+    }
+
+    .toolbar-title-ios{
+        color: white;
+    }
+
+    ion-input{
+        background-color: transparent;
+        padding: 3px;
+        padding-left: 15px;  
+        border-radius: 4px;  
+        border: 1px solid white;
+        color: white;
+    }
+
+    ::placeholder{
+        color: white !important;
+    }
+
+    ion-item{
+        background-color: transparent !important;
+        border: 1px solid white !important;
+        color: white !important;
+        border-radius: 4px !important;
+    }
+
+    ion-label, ion-select{
+        color: white;
+        font-size: 14px !important;
+    }
+
+    #bCadastrar{
+        background-color: #e25ac9;
+        margin-top: 10px;
+        width: 120px;
+        height: 40px;
+        color: white;
+        border-radius: 3px;
+    }
+}

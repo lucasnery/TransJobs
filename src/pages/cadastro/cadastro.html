@@ -1,0 +1,79 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Cadastro de Usuário</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding>
+  <ion-input type="text" placeholder="Nome" [(ngModel)]="nome"></ion-input>
+  <br>
+  <ion-input type="text" placeholder="Sobrenome" [(ngModel)]="sobrenome"></ion-input>
+  <br>
+  <ion-input type="number" placeholder="Idade" [(ngModel)]="idade"></ion-input>
+  <br>
+  <ion-item>
+    <ion-label>Gênero</ion-label>
+    <ion-select [(ngModel)]="gender">
+      <ion-option value="f">Feminino</ion-option>
+      <ion-option value="m">Masculino</ion-option>
+    </ion-select>
+  </ion-item>
+  <br>
+  <ion-item>
+    <ion-label>Escolaridade</ion-label>
+    <ion-select [(ngModel)]="escolaridade">
+      <ion-option value="fundamental">Fundamental</ion-option>
+      <ion-option value="medioIncompleto">Médio Incompleto</ion-option>
+      <ion-option value="medioCompleto">Médio Completo</ion-option>
+      <ion-option value="superiorCompleto">Superior Completo</ion-option>
+      <ion-option value="superiorIncompleto">Superior Incompleto</ion-option>
+      <ion-option value="superiorCursando">Superior Cursando</ion-option>
+    </ion-select>
+  </ion-item>
+  <br>
+  <ion-item>
+    <ion-label>Área de atuação</ion-label>
+    <ion-select [(ngModel)]="areaAtuacao">
+      <ion-option value="adm">Administração</ion-option>
+      <ion-option value="alimentos">Alimentação / Gastronomia</ion-option>
+      <ion-option value="arquitetura">Arquitetura / Decoração</ion-option>
+      <ion-option value="artes">Artes</ion-option>
+      <ion-option value="agricultura">Agricultura / Pecuária / Veterinária</ion-option>
+      <ion-option value="auditoria">Auditoria</ion-option>
+      <ion-option value="comercial">Comercial / Vendas</ion-option>
+      <ion-option value="construção">Construção / Manutenção</ion-option>
+      <ion-option value="compras">Compras</ion-option>
+      <ion-option value="comunicação">Comunicação</ion-option>
+      <ion-option value="ciencia">Ciências</ion-option>
+      <ion-option value="contabil">Contábil / Finanças / Economia</ion-option>
+      <ion-option value="cultura">Cultura / Lazer</ion-option>
+      <ion-option value="engenharia">Engenharias</ion-option>
+      <ion-option value="estetica">Estética</ion-option>
+      <ion-option value="hotelaria">Hotelaria / Turismo</ion-option>
+      <ion-option value="informatica">Informática / TI</ion-option>
+      <ion-option value="industrial">Industrial / Produção</ion-option>
+      <ion-option value="juridica">Jurídica</ion-option>
+      <ion-option value="logistica">Logistica</ion-option>
+      <ion-option value="moda">Moda</ion-option>
+      <ion-option value="marketing">Marketing</ion-option>
+      <ion-option value="pedagogia">Pedagogia</ion-option>
+      <ion-option value="quimica">Química</ion-option>
+      <ion-option value="qualidade">Qualidade</ion-option>
+      <ion-option value="rh">Recursos Humanos</ion-option>
+      <ion-option value="saude">Saúde</ion-option>
+      <ion-option value="servicos">Serviços Gerais</ion-option>
+      <ion-option value="seguranca">Segurança</ion-option>
+      <ion-option value="social">Serviço Social</ion-option>
+      <ion-option value="outros">Outros...</ion-option>
+    </ion-select>
+  </ion-item>
+  <br>
+  <ion-input type="email" placeholder="E-mail" [(ngModel)]="email"></ion-input>
+  <br>
+  <ion-input type="password" placeholder="Senha" [(ngModel)]="senha"></ion-input>
+  <br>
+  <ion-input type="password" placeholder="Repita sua Senha" [(ngModel)]="repetirSenha"></ion-input>
+  <br>
+  <button id="bCadastrar" (click)="cadastro()">Concluir cadastro</button>
+</ion-content>

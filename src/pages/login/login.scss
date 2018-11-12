@@ -1,0 +1,37 @@
+page-login {
+    .login{
+        background-image: linear-gradient(#a83ba3, #9fb8e0);
+        text-align: center;
+    }
+
+    #logo{
+        width: 400px;
+    }
+
+    #iLogin{
+        margin-top: -30px;  
+    }
+
+    ::placeholder{
+        color: #c9d8e8 !important;
+    }
+
+    ion-input{
+        background-color: transparent;
+        padding: 3px;
+        padding-left: 15px;  
+        border-radius: 4px;  
+        border: 1px solid white;
+        color: white;
+    }
+
+    #bLogin{
+        background-color: #e25ac9;
+        margin-top: 10px;
+        width: 120px;
+        height: 40px;
+        color: white;
+        border-radius: 3px;
+    }
+
+}
