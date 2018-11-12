@@ -18,6 +18,7 @@ import { PerfilPage } from '../pages/perfil/perfil';
 import { CadastroEmpresaPage } from '../pages/cadastro-empresa/cadastro-empresa';
 import { SQLite } from '@ionic-native/sqlite';
 import { TasksServiceProvider } from '../providers/tasks-service/tasks-service';
+import { DatabaseProvider } from '../providers/database/database';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { TasksServiceProvider } from '../providers/tasks-service/tasks-service';
     LinkedIn,
     SQLite,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    TasksServiceProvider
+    TasksServiceProvider,
+    DatabaseProvider
   ]
 })
 export class AppModule {}
