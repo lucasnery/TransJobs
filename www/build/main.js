@@ -53,6 +53,7 @@ var CadastroEmpresaPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_database_database__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_linkedin__ = __webpack_require__(164);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -65,6 +66,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 /**
  * Generated class for the CadastroPage page.
  *
@@ -72,12 +74,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Ionic pages and navigation.
  */
 var CadastroPage = /** @class */ (function () {
-    function CadastroPage(navCtrl, navParams, alertCtrl, loadingCtrl, db) {
+    function CadastroPage(navCtrl, navParams, alertCtrl, loadingCtrl, db, linkedin) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.alertCtrl = alertCtrl;
         this.loadingCtrl = loadingCtrl;
         this.db = db;
+        this.linkedin = linkedin;
         this.nome = "";
         this.sobrenome = "";
         this.idade = "";
@@ -89,6 +92,7 @@ var CadastroPage = /** @class */ (function () {
         this.repetirSenha = "";
     }
     CadastroPage.prototype.cadastro = function () {
+        var _this = this;
         if (this.nome == "" ||
             this.sobrenome == "" ||
             this.idade == "" ||
@@ -120,7 +124,7 @@ var CadastroPage = /** @class */ (function () {
             });
             loading_1.present();
             this.db
-                .rodarQuery("INSERT INTO usuarioPessoa(nome, sobrenome, idade, genero, escolaridade, areaAtuacao, email, senha) VALUES (?,?,?,?,?,?,?,)", [
+                .rodarQuery("INSERT INTO usuarioPessoa(nome, sobrenome, idade, genero, escolaridade, areaAtuacao, email, senha) VALUES (?,?,?,?,?,?,?,?)", [
                 this.nome,
                 this.sobrenome,
                 this.idade,
@@ -131,24 +135,47 @@ var CadastroPage = /** @class */ (function () {
                 this.senha
             ])
                 .then(function (arg) {
-                console.log(arg);
                 loading_1.dismiss();
+                _this.alertCtrl
+                    .create({
+                    subTitle: "Cadastro feito com sucesso!"
+                })
+                    .present();
+                _this.navCtrl.popToRoot();
             })
-                .catch(console.error);
+                .catch(function (err) {
+                loading_1.dismiss();
+                _this.alertCtrl
+                    .create({
+                    subTitle: err.message
+                })
+                    .present();
+                console.error(JSON.stringify(err));
+            });
         }
+    };
+    CadastroPage.prototype.goLinkedin = function () {
+        this.linkedin
+            .hasActiveSession()
+            .then(function (active) { return console.log("has active session?", active); });
+        this.linkedin
+            .login(["r_basicprofile", "r_emailaddress", "rw_company_admin", "w_share"], true)
+            .then(function () { return console.log("Logged in!"); })
+            .catch(function (e) { return console.log("Error logging in", e); });
     };
     CadastroPage.prototype.ionViewDidLoad = function () {
         console.log("ionViewDidLoad CadastroPage");
     };
     CadastroPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: "page-cadastro",template:/*ion-inline-start:"C:\Users\jeann\Downloads\TransJobs\src\pages\cadastro\cadastro.html"*/'<ion-header>\n\n  <ion-navbar>\n    <ion-title>Cadastro de Usuário</ion-title>\n  </ion-navbar>\n\n</ion-header>\n<ion-content padding>\n  <ion-input type="text" placeholder="Nome" [(ngModel)]="nome"></ion-input>\n  <br>\n  <ion-input type="text" placeholder="Sobrenome" [(ngModel)]="sobrenome"></ion-input>\n  <br>\n  <ion-input type="number" placeholder="Idade" [(ngModel)]="idade"></ion-input>\n  <br>\n  <ion-item>\n    <ion-label>Gênero</ion-label>\n    <ion-select [(ngModel)]="gender">\n      <ion-option value="f">Feminino</ion-option>\n      <ion-option value="m">Masculino</ion-option>\n    </ion-select>\n  </ion-item>\n  <br>\n  <ion-item>\n    <ion-label>Escolaridade</ion-label>\n    <ion-select [(ngModel)]="escolaridade">\n      <ion-option value="fundamental">Fundamental</ion-option>\n      <ion-option value="medioIncompleto">Médio Incompleto</ion-option>\n      <ion-option value="medioCompleto">Médio Completo</ion-option>\n      <ion-option value="superiorCompleto">Superior Completo</ion-option>\n      <ion-option value="superiorIncompleto">Superior Incompleto</ion-option>\n      <ion-option value="superiorCursando">Superior Cursando</ion-option>\n    </ion-select>\n  </ion-item>\n  <br>\n  <ion-item>\n    <ion-label>Área de atuação</ion-label>\n    <ion-select [(ngModel)]="areaAtuacao">\n      <ion-option value="adm">Administração</ion-option>\n      <ion-option value="alimentos">Alimentação / Gastronomia</ion-option>\n      <ion-option value="arquitetura">Arquitetura / Decoração</ion-option>\n      <ion-option value="artes">Artes</ion-option>\n      <ion-option value="agricultura">Agricultura / Pecuária / Veterinária</ion-option>\n      <ion-option value="auditoria">Auditoria</ion-option>\n      <ion-option value="comercial">Comercial / Vendas</ion-option>\n      <ion-option value="construção">Construção / Manutenção</ion-option>\n      <ion-option value="compras">Compras</ion-option>\n      <ion-option value="comunicação">Comunicação</ion-option>\n      <ion-option value="ciencia">Ciências</ion-option>\n      <ion-option value="contabil">Contábil / Finanças / Economia</ion-option>\n      <ion-option value="cultura">Cultura / Lazer</ion-option>\n      <ion-option value="engenharia">Engenharias</ion-option>\n      <ion-option value="estetica">Estética</ion-option>\n      <ion-option value="hotelaria">Hotelaria / Turismo</ion-option>\n      <ion-option value="informatica">Informática / TI</ion-option>\n      <ion-option value="industrial">Industrial / Produção</ion-option>\n      <ion-option value="juridica">Jurídica</ion-option>\n      <ion-option value="logistica">Logistica</ion-option>\n      <ion-option value="moda">Moda</ion-option>\n      <ion-option value="marketing">Marketing</ion-option>\n      <ion-option value="pedagogia">Pedagogia</ion-option>\n      <ion-option value="quimica">Química</ion-option>\n      <ion-option value="qualidade">Qualidade</ion-option>\n      <ion-option value="rh">Recursos Humanos</ion-option>\n      <ion-option value="saude">Saúde</ion-option>\n      <ion-option value="servicos">Serviços Gerais</ion-option>\n      <ion-option value="seguranca">Segurança</ion-option>\n      <ion-option value="social">Serviço Social</ion-option>\n      <ion-option value="outros">Outros...</ion-option>\n    </ion-select>\n  </ion-item>\n  <br>\n  <ion-input type="email" placeholder="E-mail" [(ngModel)]="email"></ion-input>\n  <br>\n  <ion-input type="password" placeholder="Senha" [(ngModel)]="senha"></ion-input>\n  <br>\n  <ion-input type="password" placeholder="Repita sua Senha" [(ngModel)]="repetirSenha"></ion-input>\n  <br>\n  <button id="bCadastrar" (click)="cadastro()">Concluir cadastro</button>\n</ion-content>'/*ion-inline-end:"C:\Users\jeann\Downloads\TransJobs\src\pages\cadastro\cadastro.html"*/
+            selector: "page-cadastro",template:/*ion-inline-start:"C:\Users\jeann\Downloads\TransJobs\src\pages\cadastro\cadastro.html"*/'<ion-header>\n  <ion-navbar> <ion-title>Cadastro de Usuário</ion-title> </ion-navbar>\n</ion-header>\n<ion-content padding>\n  <button ion-button (click)="goLinkedin()">Cadastrar com Linkedin</button>\n\n  <ion-input type="text" placeholder="Nome" [(ngModel)]="nome"></ion-input>\n  <br />\n  <ion-input\n    type="text"\n    placeholder="Sobrenome"\n    [(ngModel)]="sobrenome"\n  ></ion-input>\n  <br />\n  <ion-input type="number" placeholder="Idade" [(ngModel)]="idade"></ion-input>\n  <br />\n  <ion-item>\n    <ion-label>Gênero</ion-label>\n    <ion-select [(ngModel)]="gender">\n      <ion-option value="f">Feminino</ion-option>\n      <ion-option value="m">Masculino</ion-option>\n    </ion-select>\n  </ion-item>\n  <br />\n  <ion-item>\n    <ion-label>Escolaridade</ion-label>\n    <ion-select [(ngModel)]="escolaridade">\n      <ion-option value="fundamental">Fundamental</ion-option>\n      <ion-option value="medioIncompleto">Médio Incompleto</ion-option>\n      <ion-option value="medioCompleto">Médio Completo</ion-option>\n      <ion-option value="superiorCompleto">Superior Completo</ion-option>\n      <ion-option value="superiorIncompleto">Superior Incompleto</ion-option>\n      <ion-option value="superiorCursando">Superior Cursando</ion-option>\n    </ion-select>\n  </ion-item>\n  <br />\n  <ion-item>\n    <ion-label>Área de atuação</ion-label>\n    <ion-select [(ngModel)]="areaAtuacao">\n      <ion-option value="adm">Administração</ion-option>\n      <ion-option value="alimentos">Alimentação / Gastronomia</ion-option>\n      <ion-option value="arquitetura">Arquitetura / Decoração</ion-option>\n      <ion-option value="artes">Artes</ion-option>\n      <ion-option value="agricultura"\n        >Agricultura / Pecuária / Veterinária</ion-option\n      >\n      <ion-option value="auditoria">Auditoria</ion-option>\n      <ion-option value="comercial">Comercial / Vendas</ion-option>\n      <ion-option value="construção">Construção / Manutenção</ion-option>\n      <ion-option value="compras">Compras</ion-option>\n      <ion-option value="comunicação">Comunicação</ion-option>\n      <ion-option value="ciencia">Ciências</ion-option>\n      <ion-option value="contabil">Contábil / Finanças / Economia</ion-option>\n      <ion-option value="cultura">Cultura / Lazer</ion-option>\n      <ion-option value="engenharia">Engenharias</ion-option>\n      <ion-option value="estetica">Estética</ion-option>\n      <ion-option value="hotelaria">Hotelaria / Turismo</ion-option>\n      <ion-option value="informatica">Informática / TI</ion-option>\n      <ion-option value="industrial">Industrial / Produção</ion-option>\n      <ion-option value="juridica">Jurídica</ion-option>\n      <ion-option value="logistica">Logistica</ion-option>\n      <ion-option value="moda">Moda</ion-option>\n      <ion-option value="marketing">Marketing</ion-option>\n      <ion-option value="pedagogia">Pedagogia</ion-option>\n      <ion-option value="quimica">Química</ion-option>\n      <ion-option value="qualidade">Qualidade</ion-option>\n      <ion-option value="rh">Recursos Humanos</ion-option>\n      <ion-option value="saude">Saúde</ion-option>\n      <ion-option value="servicos">Serviços Gerais</ion-option>\n      <ion-option value="seguranca">Segurança</ion-option>\n      <ion-option value="social">Serviço Social</ion-option>\n      <ion-option value="outros">Outros...</ion-option>\n    </ion-select>\n  </ion-item>\n  <br />\n  <ion-input type="email" placeholder="E-mail" [(ngModel)]="email"></ion-input>\n  <br />\n  <ion-input\n    type="password"\n    placeholder="Senha"\n    [(ngModel)]="senha"\n  ></ion-input>\n  <br />\n  <ion-input\n    type="password"\n    placeholder="Repita sua Senha"\n    [(ngModel)]="repetirSenha"\n  ></ion-input>\n  <br />\n  <button id="bCadastrar" (click)="cadastro()">Concluir cadastro</button>\n</ion-content>\n'/*ion-inline-end:"C:\Users\jeann\Downloads\TransJobs\src\pages\cadastro\cadastro.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */],
-            __WEBPACK_IMPORTED_MODULE_2__providers_database_database__["a" /* DatabaseProvider */]])
+            __WEBPACK_IMPORTED_MODULE_2__providers_database_database__["a" /* DatabaseProvider */],
+            __WEBPACK_IMPORTED_MODULE_3__ionic_native_linkedin__["a" /* LinkedIn */]])
     ], CadastroPage);
     return CadastroPage;
 }());
@@ -519,28 +546,30 @@ var DatabaseProvider = /** @class */ (function () {
         this.sql = sql;
         this.dbName = "transjobs.db";
         this.dbLocation = "default";
+        this.db = null;
         console.log("Hello DatabaseProvider Provider");
         this.inicializar();
     }
     DatabaseProvider.prototype.inicializar = function () {
-        // Cria a tabela de usuários
-        this.rodarQuery("CREATE TABLE IF NOT EXISTS usuarioPessoa(id INTEGER PRIMARY KEY AUTOINCREMENT, nome, sobrenome, idade, genero, escolaridade, areaAtuacao, email, senha");
-    };
-    DatabaseProvider.prototype.getInstance = function () {
-        return this.sql.create({
+        var _this = this;
+        this.sql
+            .create({
             name: this.dbName,
             location: this.dbLocation
+        })
+            .then(function (d) {
+            _this.db = d;
+            d.executeSql("CREATE TABLE IF NOT EXISTS usuarioPessoa(id INTEGER PRIMARY KEY AUTOINCREMENT, nome, sobrenome, idade, genero, escolaridade, areaAtuacao, email, senha)");
         });
     };
     DatabaseProvider.prototype.rodarQuery = function (query, data) {
         var _this = this;
         if (data === void 0) { data = []; }
         return new Promise(function (resolve, reject) {
-            _this.getInstance().then(function (db) {
-                db.executeSql(query, data)
-                    .then(resolve)
-                    .catch(reject);
-            });
+            _this.db
+                .executeSql(query, data)
+                .then(resolve)
+                .catch(reject);
         });
     };
     DatabaseProvider = __decorate([
@@ -554,7 +583,7 @@ var DatabaseProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 205:
+/***/ 206:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -589,13 +618,13 @@ var HomePage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 206:
+/***/ 207:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(207);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(227);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(228);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -603,7 +632,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 227:
+/***/ 228:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -611,12 +640,12 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(276);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_linkedin__ = __webpack_require__(277);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_home_home__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(277);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_linkedin__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_home_home__ = __webpack_require__(206);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_tabs_tabs__ = __webpack_require__(278);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_status_bar__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_splash_screen__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_status_bar__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_splash_screen__ = __webpack_require__(205);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_cadastro_cadastro__ = __webpack_require__(101);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_empresas_empresas__ = __webpack_require__(102);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_eventos_eventos__ = __webpack_require__(103);
@@ -715,7 +744,7 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 276:
+/***/ 277:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -723,8 +752,8 @@ var AppModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pages_login_login__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_status_bar__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_status_bar__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_splash_screen__ = __webpack_require__(205);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -769,7 +798,7 @@ var MyApp = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__vagas_vagas__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__empresas_empresas__ = __webpack_require__(102);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home__ = __webpack_require__(206);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__eventos_eventos__ = __webpack_require__(103);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -860,5 +889,5 @@ var TasksServiceProvider = /** @class */ (function () {
 
 /***/ })
 
-},[206]);
+},[207]);
 //# sourceMappingURL=main.js.map

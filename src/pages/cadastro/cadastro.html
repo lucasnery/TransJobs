@@ -1,17 +1,19 @@
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Cadastro de Usuário</ion-title>
-  </ion-navbar>
-
+  <ion-navbar> <ion-title>Cadastro de Usuário</ion-title> </ion-navbar>
 </ion-header>
 <ion-content padding>
+  <button ion-button (click)="goLinkedin()">Cadastrar com Linkedin</button>
+
   <ion-input type="text" placeholder="Nome" [(ngModel)]="nome"></ion-input>
-  <br>
-  <ion-input type="text" placeholder="Sobrenome" [(ngModel)]="sobrenome"></ion-input>
-  <br>
+  <br />
+  <ion-input
+    type="text"
+    placeholder="Sobrenome"
+    [(ngModel)]="sobrenome"
+  ></ion-input>
+  <br />
   <ion-input type="number" placeholder="Idade" [(ngModel)]="idade"></ion-input>
-  <br>
+  <br />
   <ion-item>
     <ion-label>Gênero</ion-label>
     <ion-select [(ngModel)]="gender">
@@ -19,7 +21,7 @@
       <ion-option value="m">Masculino</ion-option>
     </ion-select>
   </ion-item>
-  <br>
+  <br />
   <ion-item>
     <ion-label>Escolaridade</ion-label>
     <ion-select [(ngModel)]="escolaridade">
@@ -31,7 +33,7 @@
       <ion-option value="superiorCursando">Superior Cursando</ion-option>
     </ion-select>
   </ion-item>
-  <br>
+  <br />
   <ion-item>
     <ion-label>Área de atuação</ion-label>
     <ion-select [(ngModel)]="areaAtuacao">
@@ -39,7 +41,9 @@
       <ion-option value="alimentos">Alimentação / Gastronomia</ion-option>
       <ion-option value="arquitetura">Arquitetura / Decoração</ion-option>
       <ion-option value="artes">Artes</ion-option>
-      <ion-option value="agricultura">Agricultura / Pecuária / Veterinária</ion-option>
+      <ion-option value="agricultura"
+        >Agricultura / Pecuária / Veterinária</ion-option
+      >
       <ion-option value="auditoria">Auditoria</ion-option>
       <ion-option value="comercial">Comercial / Vendas</ion-option>
       <ion-option value="construção">Construção / Manutenção</ion-option>
@@ -68,12 +72,20 @@
       <ion-option value="outros">Outros...</ion-option>
     </ion-select>
   </ion-item>
-  <br>
+  <br />
   <ion-input type="email" placeholder="E-mail" [(ngModel)]="email"></ion-input>
-  <br>
-  <ion-input type="password" placeholder="Senha" [(ngModel)]="senha"></ion-input>
-  <br>
-  <ion-input type="password" placeholder="Repita sua Senha" [(ngModel)]="repetirSenha"></ion-input>
-  <br>
+  <br />
+  <ion-input
+    type="password"
+    placeholder="Senha"
+    [(ngModel)]="senha"
+  ></ion-input>
+  <br />
+  <ion-input
+    type="password"
+    placeholder="Repita sua Senha"
+    [(ngModel)]="repetirSenha"
+  ></ion-input>
+  <br />
   <button id="bCadastrar" (click)="cadastro()">Concluir cadastro</button>
 </ion-content>

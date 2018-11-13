@@ -11,6 +11,7 @@ import { SQLite, SQLiteObject } from "@ionic-native/sqlite";
 export class DatabaseProvider {
   private dbName: string = "transjobs.db";
   private dbLocation: string = "default";
+  private db: SQLiteObject = null;
 
   constructor(private sql: SQLite) {
     console.log("Hello DatabaseProvider Provider");
@@ -19,26 +20,25 @@ export class DatabaseProvider {
   }
 
   inicializar() {
-    // Cria a tabela de usuários
-    this.rodarQuery(
-      "CREATE TABLE IF NOT EXISTS usuarioPessoa(id INTEGER PRIMARY KEY AUTOINCREMENT, nome, sobrenome, idade, genero, escolaridade, areaAtuacao, email, senha"
-    );
-  }
-
-  getInstance() {
-    return this.sql.create({
-      name: this.dbName,
-      location: this.dbLocation
-    });
+    this.sql
+      .create({
+        name: this.dbName,
+        location: this.dbLocation
+      })
+      .then((d: SQLiteObject) => {
+        this.db = d;
+        d.executeSql(
+          "CREATE TABLE IF NOT EXISTS usuarioPessoa(id INTEGER PRIMARY KEY AUTOINCREMENT, nome, sobrenome, idade, genero, escolaridade, areaAtuacao, email, senha)"
+        );
+      });
   }
 
   rodarQuery(query: string, data = []) {
     return new Promise((resolve, reject) => {
-      this.getInstance().then((db: SQLiteObject) => {
-        db.executeSql(query, data)
-          .then(resolve)
-          .catch(reject);
-      });
+      this.db
+        .executeSql(query, data)
+        .then(resolve)
+        .catch(reject);
     });
   }
 }

@@ -8,6 +8,7 @@ import {
   AlertController
 } from "ionic-angular";
 import { DatabaseProvider } from "../../providers/database/database";
+import { LinkedIn } from "@ionic-native/linkedin";
 
 /**
  * Generated class for the CadastroPage page.
@@ -37,7 +38,8 @@ export class CadastroPage {
     public navParams: NavParams,
     private alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    private db: DatabaseProvider
+    private db: DatabaseProvider,
+    private linkedin: LinkedIn
   ) {}
 
   cadastro() {
@@ -77,7 +79,7 @@ export class CadastroPage {
 
       this.db
         .rodarQuery(
-          "INSERT INTO usuarioPessoa(nome, sobrenome, idade, genero, escolaridade, areaAtuacao, email, senha) VALUES (?,?,?,?,?,?,?,)",
+          "INSERT INTO usuarioPessoa(nome, sobrenome, idade, genero, escolaridade, areaAtuacao, email, senha) VALUES (?,?,?,?,?,?,?,?)",
           [
             this.nome,
             this.sobrenome,
@@ -90,11 +92,38 @@ export class CadastroPage {
           ]
         )
         .then(arg => {
-          console.log(arg);
           loading.dismiss();
+          this.alertCtrl
+            .create({
+              subTitle: "Cadastro feito com sucesso!"
+            })
+            .present();
+          this.navCtrl.popToRoot();
         })
-        .catch(console.error);
+        .catch(err => {
+          loading.dismiss();
+          this.alertCtrl
+            .create({
+              subTitle: err.message
+            })
+            .present();
+          console.error(JSON.stringify(err));
+        });
     }
+  }
+
+  goLinkedin() {
+    this.linkedin
+      .hasActiveSession()
+      .then(active => console.log("has active session?", active));
+
+    this.linkedin
+      .login(
+        ["r_basicprofile", "r_emailaddress", "rw_company_admin", "w_share"],
+        true
+      )
+      .then(() => console.log("Logged in!"))
+      .catch(e => console.log("Error logging in", e));
   }
 
   ionViewDidLoad() {
